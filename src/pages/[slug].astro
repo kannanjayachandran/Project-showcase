@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+export async function getStaticPaths() {
+  const posts = await Astro.glob('../Projects/*.md');
+  return posts.map(Projects => ({
+    params: {
+      slug: Projects.frontmatter.slug
+    },
+    props: {
+      Projects
+    }
+  }));
+}
+const { Content, frontmatter } = Astro.props.Projects;
+---
+
+<Layout title={frontmatter.title}>
+  <section class="page-content">
+    <div class="container">
+      <Card>
+        <a class="btn" href="/Projects">Go Back</a>
+        <h2>{frontmatter.title}</h2>
+        <div>
+          Created by <strong>{frontmatter.author} </strong> on 
+          {new Date(frontmatter.date).toLocaleDateString()} available on <a href={frontmatter.link}><strong>link</strong></a>
+        </div>
+        <Content />
+      </Card>
+    </div>
+  </section>
+</Layout>

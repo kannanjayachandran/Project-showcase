@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Showcase from '../components/Showcase.astro';
+import Card from '../components/Card.astro';
+
+const posts = await Astro.glob('../Projects/*.md');
+---
+
+<Layout title="Astro Blog">
+  <Showcase heading="Astro Blog" text="A simple blog built with Astro" />
+  <section class="page-content">
+    <div class="container">
+      {posts.map(Projects => (
+        <Card>
+          <h3>{Projects.frontmatter.title}</h3>
+          <div>
+          Written by <strong>{Projects.frontmatter.author} </strong> on {new Date(Projects.frontmatter.date).toLocaleDateString()}
+        </div>
+          <p>{Projects.frontmatter.excerpt}</p>  
+          <a class="btn" href={`/${Projects.frontmatter.slug}`}>Read More</a>
+        </Card>
+      ))}
+    </div>
+  </section>
+</Layout>

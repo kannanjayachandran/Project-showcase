@@ -1,0 +1,35 @@
+---
+import Card from './Card.astro'
+const featuresData = [
+  {title: 'Machine Learning - Data Science', body: 'All Machine learning, Data Science, Data Engineering projects.'},
+  {title: 'Web Development', body: 'All Web Development projects.'},
+  {title: 'Python', body: 'All Python projects. (Excluding Machine Learning)'},
+  {title: 'Others', body: 'Other projects.'}
+];
+---
+
+<section class="features">
+  <div class="container">
+   {featuresData.map(feature => (
+      <Card>
+        <h3>{feature.title}</h3>
+        <p>{feature.body}</p>
+      </Card>
+    ))}
+  </div>
+</section>
+
+<style>
+  .features .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 0 20px;
+    margin: 30px auto;
+  }
+  @media (max-width: 500px) {
+  .features .container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
